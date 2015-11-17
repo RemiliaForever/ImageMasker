@@ -24,11 +24,18 @@ public class Main {
 			System.out.print("What do you want to do(r/w):");
 			s = bufferedReader.readLine();
 			if (s.equals("r")) {
-				System.out.print(DataEncoder.decodeString(imageMasker.content));
+				System.out.print(DataEncoder.decodeString(imageMasker.content).trim());
 			} else if (s.equals("w")) {
 				System.out.print("Input Data(<=" + imageMasker.content.length / 8 / 3 + "):");
 				s = bufferedReader.readLine();
-//				imageMasker.content = DataEncoder.encodeString(s);
+
+				boolean[] value = DataEncoder.encodeString(s);
+				for (int i = 0; i < value.length; i++)
+					imageMasker.content[i] = value[i];
+				for (int i = value.length; i < imageMasker.content.length; i++) {
+					imageMasker.content[i] = false;
+				}
+
 				System.out.print("Target File:");
 				s = bufferedReader.readLine();
 				imageMasker.write(s);

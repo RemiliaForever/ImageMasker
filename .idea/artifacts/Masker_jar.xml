@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="Masker:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Masker_jar</output-path>
+    <root id="archive" name="Masker.jar">
+      <element id="module-output" name="Masker" />
+    </root>
+  </artifact>
+</component>
