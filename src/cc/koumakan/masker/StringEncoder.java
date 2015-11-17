@@ -6,7 +6,7 @@ import java.nio.ByteBuffer;
  * Created by Remilia Scarlet
  * on 2015/11/17 16:05.
  */
-public class DataEncoder {
+public class StringEncoder {
 
 	public static boolean[] encodeString(String s) {
 		try {
@@ -56,17 +56,4 @@ public class DataEncoder {
 		return null;
 	}
 
-
-	public static void main(String[] args) {
-		boolean[] bl;
-		bl = encodeString("Test");
-		for (boolean bll : bl) {
-			if (bll) System.out.print("1");
-			else System.out.print("0");
-		}
-		System.out.println();
-
-		String s = decodeString(bl);
-		System.out.print(s);
-	}
 }
