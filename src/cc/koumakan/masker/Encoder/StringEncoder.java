@@ -1,4 +1,6 @@
-package cc.koumakan.masker;
+package cc.koumakan.masker.Encoder;
+
+import com.sun.istack.internal.NotNull;
 
 import java.nio.ByteBuffer;
 
@@ -13,30 +15,23 @@ public class StringEncoder {
 			byte[] b = s.getBytes("GBK");
 			boolean[] bl = new boolean[b.length * 8];
 			for (int i = 0; i < b.length; i++) {
-				if (((b[i] >> 0) & 0x1) == 1) bl[8 * i] = true;
-				else bl[8 * i] = false;
-				if (((b[i] >> 1) & 0x1) == 1) bl[8 * i + 1] = true;
-				else bl[8 * i + 1] = false;
-				if (((b[i] >> 2) & 0x1) == 1) bl[8 * i + 2] = true;
-				else bl[8 * i + 2] = false;
-				if (((b[i] >> 3) & 0x1) == 1) bl[8 * i + 3] = true;
-				else bl[8 * i + 3] = false;
-				if (((b[i] >> 4) & 0x1) == 1) bl[8 * i + 4] = true;
-				else bl[8 * i + 4] = false;
-				if (((b[i] >> 5) & 0x1) == 1) bl[8 * i + 5] = true;
-				else bl[8 * i + 5] = false;
-				if (((b[i] >> 6) & 0x1) == 1) bl[8 * i + 6] = true;
-				else bl[8 * i + 6] = false;
-				if (((b[i] >> 7) & 0x1) == 1) bl[8 * i + 7] = true;
-				else bl[8 * i + 7] = false;
+				bl[8 * i] = (((b[i]) & 0x1) == 1);
+				bl[8 * i + 1] = (((b[i] >> 1) & 0x1) == 1);
+				bl[8 * i + 2] = (((b[i] >> 2) & 0x1) == 1);
+				bl[8 * i + 3] = (((b[i] >> 3) & 0x1) == 1);
+				bl[8 * i + 4] = (((b[i] >> 4) & 0x1) == 1);
+				bl[8 * i + 5] = (((b[i] >> 5) & 0x1) == 1);
+				bl[8 * i + 6] = (((b[i] >> 6) & 0x1) == 1);
+				bl[8 * i + 7] = (((b[i] >> 7) & 0x1) == 1);
 			}
 			return bl;
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return null;
 	}
 
-	public static String decodeString(boolean[] bl) {
+	public static String decodeString(@NotNull boolean[] bl) {
 		try {
 			byte[] b = new byte[bl.length / 8];
 			for (int i = 0; i < b.length; i++) {
@@ -52,8 +47,9 @@ public class StringEncoder {
 			}
 			return new String(b, "GBK");
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		return null;
+		return "Failed to decode string!";
 	}
 
 }

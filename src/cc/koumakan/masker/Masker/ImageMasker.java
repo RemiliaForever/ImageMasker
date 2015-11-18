@@ -1,4 +1,4 @@
-package cc.koumakan.masker;
+package cc.koumakan.masker.Masker;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -13,8 +13,8 @@ import java.io.IOException;
  * 图像掩蔽 RGB依次取Bit
  */
 public class ImageMasker {
-	BufferedImage image = null;
-	boolean[] content = null;
+	public boolean[] content = null;
+	private BufferedImage image = null;
 
 	private void setContent(Color color, int start) {
 		content[start] = (1 == color.getRed() % 2);

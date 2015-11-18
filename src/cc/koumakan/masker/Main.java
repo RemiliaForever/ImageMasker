@@ -1,5 +1,8 @@
 package cc.koumakan.masker;
 
+import cc.koumakan.masker.Encoder.StringEncoder;
+import cc.koumakan.masker.Masker.ImageMasker;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -24,13 +27,13 @@ public class Main {
 			System.out.print("What do you want to do(r/w):");
 			s = bufferedReader.readLine();
 			if (s.equals("r")) {
-				System.out.print(DataEncoder.decodeString(imageMasker.content).trim());
+				System.out.print(StringEncoder.decodeString(imageMasker.content).trim());
 			} else if (s.equals("w")) {
-				System.out.print("Input Data(<=" + imageMasker.content.length / 8 / 3 + "):");
+				System.out.print("Input Data(<=" + imageMasker.content.length / 8 + "):");
 				s = bufferedReader.readLine();
 
-				boolean[] value = DataEncoder.encodeString(s);
-				for (int i = 0; i < value.length; i++)
+				boolean[] value = StringEncoder.encodeString(s);
+					for (int i = 0; i < value.length; i++)
 					imageMasker.content[i] = value[i];
 				for (int i = value.length; i < imageMasker.content.length; i++) {
 					imageMasker.content[i] = false;
