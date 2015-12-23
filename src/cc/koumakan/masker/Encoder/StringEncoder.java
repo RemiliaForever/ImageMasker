@@ -2,18 +2,23 @@ package cc.koumakan.masker.Encoder;
 
 import com.sun.istack.internal.NotNull;
 
-import java.nio.ByteBuffer;
-
 /**
  * Created by Remilia Scarlet
  * on 2015/11/17 16:05.
  */
 public class StringEncoder {
 
+	/**
+	 * 字符串转二进制数组
+	 *
+	 * @param s 字符串
+	 * @return 二进制数组
+	 */
 	public static boolean[] encodeString(String s) {
+		boolean[] bl = {false};
 		try {
-			byte[] b = s.getBytes("GBK");
-			boolean[] bl = new boolean[b.length * 8];
+			byte[] b = s.getBytes("UTF-8");
+			bl = new boolean[b.length * 8];
 			for (int i = 0; i < b.length; i++) {
 				bl[8 * i] = (((b[i]) & 0x1) == 1);
 				bl[8 * i + 1] = (((b[i] >> 1) & 0x1) == 1);
@@ -28,9 +33,15 @@ public class StringEncoder {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		return bl;
 	}
 
+	/**
+	 * 二进制数组转字符串
+	 *
+	 * @param bl 二进制数组
+	 * @return 字符串
+	 */
 	public static String decodeString(@NotNull boolean[] bl) {
 		try {
 			byte[] b = new byte[bl.length / 8];
@@ -45,7 +56,7 @@ public class StringEncoder {
 				if (bl[8 * i + 6]) b[i] = (byte) (b[i] | 0x40);
 				if (bl[8 * i + 7]) b[i] = (byte) (b[i] | 0x80);
 			}
-			return new String(b, "GBK");
+			return new String(b, "UTF-8");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -23,18 +23,30 @@ public class Main {
 		try {
 			System.out.print("Source File:");
 			String s = bufferedReader.readLine();
-			imageMasker.read(s);
+			if (!imageMasker.read(s)) return;
 			System.out.print("What do you want to do(r/w):");
 			s = bufferedReader.readLine();
 			if (s.equals("r")) {
-				System.out.print(StringEncoder.decodeString(imageMasker.content).trim());
+				System.out.print(StringEncoder.decodeString(imageMasker.content).trim() + "\n");
 			} else if (s.equals("w")) {
+				System.out.print("0:least significant bit\n1:????\nSelect the algorithm:");
+				s = bufferedReader.readLine();
+				switch (s) {
+					case "0":
+						imageMasker.set(0);
+						break;
+					case "1":
+						imageMasker.set(1);
+						break;
+					default:
+						imageMasker.set(1);
+						System.out.print("Change to [1].\n");
+				}
 				System.out.print("Input Data(<=" + imageMasker.content.length / 8 + "):");
 				s = bufferedReader.readLine();
 
 				boolean[] value = StringEncoder.encodeString(s);
-					for (int i = 0; i < value.length; i++)
-					imageMasker.content[i] = value[i];
+				System.arraycopy(value, 0, imageMasker.content, 0, value.length);
 				for (int i = value.length; i < imageMasker.content.length; i++) {
 					imageMasker.content[i] = false;
 				}
